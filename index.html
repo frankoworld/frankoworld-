@@ -1,72 +1,114 @@
 <!DOCTYPE html>
-
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>frankoworld 2.1</title>
+<title>frankoworld 2.2</title>
 <script src="https://fpyf8.com/88/tag.min.js" data-zone="174740" async data-cfasync="false"></script>
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
 body{font-family:Arial,sans-serif;background:#f0f2f5}
-header{background:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 1px 3px rgba(0,0,0,0.1)}
+header{background:#fff;padding:10px 12px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:99;box-shadow:0 1px 3px rgba(0,0,0,.1)}
 .logo{font-weight:bold;font-size:22px;color:#1877f2}
-.icons{display:flex;gap:8px;align-items:center}
-.ic{width:38px;height:38px;border-radius:50%;background:#e4e6eb;display:flex;align-items:center;justify-content:center}
+.icons{display:flex;gap:8px}
+.ic{width:38px;height:38px;border-radius:50%;background:#e4e6eb;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.ic:active{transform:scale(.9)}
 .ic.fb{background:#1877f2;color:#fff;font-weight:bold}
 .stories{display:flex;gap:8px;overflow-x:auto;padding:10px 8px;background:#fff}
-.s-card{min-width:115px;height:175px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8px;color:#fff;font-weight:bold;font-size:13px}
+.s-card{min-width:115px;height:175px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;display:flex;flex-direction:column;justify-content:flex-end;padding:8px;color:#fff;font-weight:bold;font-size:13px;cursor:pointer}
+.s-card:active{transform:scale(.97)}
 .s1{background:linear-gradient(180deg,#ffd86f,#ff9a5c)}
 .s2{background:linear-gradient(180deg,#7cf7d4,#6be2ff)}
 .s3{background:linear-gradient(180deg,#b8e3ff,#8aa8ff)}
 .s-add{background:#fff;border:1px solid #ddd;color:#000;align-items:center;justify-content:center}
 .s-add b{width:32px;height:32px;background:#1877f2;color:#fff;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:20px;margin-bottom:25px}
-.card{background:#fff;border-radius:10px;margin:8px 0;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,0.1)}
+.card{background:#fff;border-radius:10px;margin:8px 0;padding:10px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
 .post-box{display:flex;gap:8px;align-items:center}
-.post-box .av{width:44px;height:44px;border-radius:50%;background:#1877f2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}
-.post-box input{flex:1;background:#f0f2f5;border:none;padding:12px 14px;border-radius:20px}
+.av{width:44px;height:44px;border-radius:50%;background:#1877f2;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.post-box input{flex:1;background:#f0f2f5;border:none;padding:12px 14px;border-radius:20px;outline:none}
 .actions{display:flex;justify-content:space-around;padding-top:10px;margin-top:10px;border-top:1px solid #eee}
-.actions span{font-weight:600;font-size:14px;color:#65676b}
+.actions span{font-weight:600;font-size:14px;color:#65676b;cursor:pointer;padding:6px 12px;border-radius:6px}
+.actions span:active{background:#f0f2f5}
 .reels-head{display:flex;justify-content:space-between;padding:12px 0 8px;font-weight:bold}
 .reels{display:flex;gap:8px;overflow-x:auto}
-.r-card{min-width:125px;height:190px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:40px}
-.r-card p{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,0.8));color:#fff;font-size:12px;padding:25px 6px 8px;font-weight:600}
+.r-card{min-width:125px;height:190px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;display:flex;align-items:center;justify-content:center;font-size:40px;cursor:pointer}
+.r-card:active{transform:scale(.97)}
+.r-card p{position:absolute;bottom:0;left:0;right:0;background:linear-gradient(transparent,rgba(0,0,0,.8));color:#fff;font-size:12px;padding:25px 6px 8px;font-weight:600}
 .r1{background:linear-gradient(180deg,#ffc2e0,#ff8fab)}
 .r2{background:linear-gradient(180deg,#ffdcb8,#ffb88c)}
 .r3{background:linear-gradient(180deg,#c2e4ff,#8ec5ff)}
-.feed-post .head{display:flex;gap:8px;align-items:center}
+.feed{padding:12px}
+.head{display:flex;gap:8px;align-items:center}
 .jd{width:42px;height:42px;border-radius:50%;background:#2eb872;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:bold}
+.btns{display:flex;justify-content:space-around;border-top:1px solid #eee;padding-top:8px;margin-top:8px;color:#65676b;font-weight:600;font-size:14px}
+.btns span{cursor:pointer;padding:6px 12px;border-radius:6px;flex:1;text-align:center}
+.btns span:active{background:#f0f2f5}
+.liked{color:#1877f2!important}
+#modal{display:none;position:fixed;top:0;left:0;right:0;bottom:0;background:rgba(0,0,0,.85);z-index:999;align-items:center;justify-content:center;color:#fff;flex-direction:column;padding:20px;text-align:center}
+#modal b{font-size:22px;margin-bottom:10px}
+#modal button{margin-top:15px;padding:10px 20px;border:none;border-radius:20px;background:#1877f2;color:#fff;font-weight:bold}
 </style>
 </head>
 <body>
 <header>
-<div class="logo">franko<span style="color:#2eb872">world</span> 2.1</div>
+<div class="logo">franko<span style="color:#2eb872">world</span> 2.2</div>
 <div class="icons">
-<div class="ic">🏠</div><div class="ic">🎬</div><div class="ic">🔔</div><div class="ic fb">FB</div>
+<div class="ic" onclick="pop('Home')">🏠</div><div class="ic" onclick="pop('Reels')">🎬</div><div class="ic" onclick="pop('Notifications 🔔 No new alerts')">🔔</div><div class="ic fb" onclick="pop('Profile')">FB</div>
 </div>
 </header>
+
 <div class="stories">
-<div class="s-card s-add"><b>+</b><span>Create<br>story</span></div>
-<div class="s-card s1"><span>Franko's Day<br>🔥</span></div>
-<div class="s-card s2"><span>Lagos Vibes</span></div>
-<div class="s-card s3"><span>My Trip</span></div>
+<div class="s-card s-add" onclick="pop('Create Story 📸 Choose photo to add story')"><b>+</b><span>Create<br>story</span></div>
+<div class="s-card s1" onclick="pop('Franko\\'s Day 🔥 - Fullscreen story playing...')"><span>Franko's Day<br>🔥</span></div>
+<div class="s-card s2" onclick="pop('Lagos Vibes 🌴 - Story playing...')"><span>Lagos Vibes</span></div>
+<div class="s-card s3" onclick="pop('My Trip ✈️ - Story playing...')"><span>My Trip</span></div>
 </div>
+
 <div class="card">
-<div class="post-box"><div class="av">FB</div><input placeholder="What's on your mind? Press Enter"></div>
-<div class="actions"><span>🎥 Live</span><span>🖼️ Photo</span><span>😊 Feeling</span></div>
+<div class="post-box"><div class="av">FB</div><input id="postInput" placeholder="What's on your mind? Press Enter"></div>
+<div class="actions"><span onclick="pop('Go Live 🎥 Starting live video...')">🎥 Live</span><span onclick="pop('Add Photo 🖼️ Opening gallery...')">🖼️ Photo</span><span onclick="pop('Feeling 😊 How are you feeling?')">😊 Feeling</span></div>
 </div>
+
 <div class="card">
-<div class="reels-head"><span>Reels & Shorts</span><span style="color:#1877f2;font-size:14px">See all</span></div>
+<div class="reels-head"><span>Reels & Shorts</span><span style="color:#1877f2;font-size:14px;cursor:pointer" onclick="pop('All Reels')">See all</span></div>
 <div class="reels">
-<div class="r-card r1">💃<p>Afro Dance • 2.1M</p></div>
-<div class="r-card r2">🎤<p>Lagos Night • 856K</p></div>
-<div class="r-card r3">⚽<p>Goal! • 1.3M</p></div>
+<div class="r-card r1" onclick="pop('Playing: Afro Dance 💃 2.1M views')">💃<p>Afro Dance • 2.1M</p></div>
+<div class="r-card r2" onclick="pop('Playing: Lagos Night 🎤 856K views')">🎤<p>Lagos Night • 856K</p></div>
+<div class="r-card r3" onclick="pop('Playing: Goal! ⚽ 1.3M views')">⚽<p>Goal! • 1.3M</p></div>
 </div>
 </div>
-<div class="card" style="padding:12px">
+
+<div class="card feed">
 <div class="head"><div class="jd">JD</div><div><b>John Doe ✔️</b><br><small>2 hrs ago • Public</small></div></div>
-<p style="margin:10px 0;font-size:14px">Welcome to FrankoWorld 2.1! EVERY button works! Tap Like, Comment, Reels, Stories!</p>
-<div style="display:flex;justify-content:space-around;border-top:1px solid #eee;padding-top:8px;color:#65676b;font-weight:600">👍 Like 💬 Comment ↗️ Share</div>
+<p style="margin:10px 0;font-size:14px" id="feedText">Welcome to FrankoWorld 2.2! EVERY button now clickable! Tap anything!</p>
+<div class="btns"><span onclick="like(this)">👍 Like</span><span onclick="comment()">💬 Comment</span><span onclick="pop('Shared ↗️ Post shared to your timeline')">↗️ Share</span></div>
 </div>
+
+<div id="modal" onclick="this.style.display='none'">
+<b id="modalTitle"></b><p id="modalText"></p><button>Close</button>
+</div>
+
+<script>
+function pop(t){
+ document.getElementById('modalTitle').innerText=t.split(' - ')[0];
+ document.getElementById('modalText').innerText=t;
+ document.getElementById('modal').style.display='flex';
+}
+function like(el){
+ el.classList.toggle('liked');
+ el.innerText = el.classList.contains('liked')? '💙 Liked' : '👍 Like';
+}
+function comment(){
+ let c=prompt('Write a comment:');
+ if(c) pop('Comment posted: '+c);
+}
+document.getElementById('postInput').addEventListener('keypress',function(e){
+ if(e.key==='Enter' && this.value){
+  document.getElementById('feedText').innerText=this.value;
+  pop('Posted: '+this.value);
+  this.value='';
+ }
+});
+</script>
 </body>
 </html>
