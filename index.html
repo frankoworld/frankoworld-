@@ -3,79 +3,146 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FrankoWorld 3.0</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@600;800&display=swap" rel="stylesheet">
+<title>FrankoWorld 4.0 - Facebook Edition</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:Inter,Arial}
-body{background:#f0f2f5}
-.top{background:#fff;position:sticky;top:0;z-index:10;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.logo{font-weight:800;font-size:22px}.logo b{color:#1877f2}.logo i{color:#00c851;font-style:normal}
-.feed{max-width:680px;margin:0 auto}
-.stories{display:flex;gap:8px;overflow:auto;padding:12px;background:#fff;margin-top:8px}
-.story{min-width:110px;height:180px;border-radius:12px;background:#e4e6eb;position:relative;overflow:hidden}
-.post{background:#fff;margin-top:8px;border-radius:8px;overflow:hidden}
-.post-head{padding:12px;display:flex;gap:10px}
-.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#00c851);color:#fff;display:flex;align-items:center;justify-content:center;font-weight:800}
-.post-img{width:100%;max-height:500px;object-fit:cover;background:#000}
-.btns{display:flex;border-top:1px solid #e4e6eb}
-.btn{flex:1;padding:12px;text-align:center;font-weight:600;color:#65676b;cursor:pointer}
-.create{background:#fff;margin-top:8px;padding:12px;display:flex;gap:8px;align-items:center}
-.input{flex:1;background:#f0f2f5;padding:10px 16px;border-radius:20px;color:#65676b}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.6);z-index:99;align-items:center;justify-content:center;padding:12px}
-#modal.open{display:flex}
-.box{background:#fff;width:100%;max-width:500px;border-radius:12px;padding:16px}
-textarea{width:100%;min-height:90px;border:none;outline:none;font-size:18px;resize:none}
-.preview{margin-top:10px;border-radius:10px;overflow:hidden;display:none}
-.preview img,.preview video{width:100%}
-.btn-blue{background:#1877f2;color:#fff;border:none;padding:12px;border-radius:8px;width:100%;font-weight:800;margin-top:10px}
+*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto}
+body{background:#f0f2f5;padding-bottom:70px}
+.topbar{position:sticky;top:0;z-index:100;background:white;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
+.logo{font-size:24px;font-weight:900}.logo b{color:#1877f2}.logo span{color:#42b72a}
+.topicons{display:flex;gap:14px;font-size:22px}
+.stories{display:flex;gap:8px;overflow-x:auto;padding:12px;background:white;margin-bottom:8px;scrollbar-width:none}
+.story-card{min-width:110px;height:180px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,.2);cursor:pointer}
+.story-card.add{background:#f0f2f5;border:1px solid #ddd;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.create-story-btn{width:44px;height:44px;background:#1877f2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;margin-bottom:8px}
+.story-card.img{color:white;display:flex;align-items:end;padding:8px;font-weight:700;font-size:13px}
+.create-post{background:white;padding:12px;display:flex;gap:8px;align-items:center;margin-bottom:8px}
+.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#42b72a);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
+.input-fake{flex:1;background:#f0f2f5;padding:10px 14px;border-radius:20px;color:#65676b;cursor:pointer}
+.post-actions{display:flex;background:white;border-top:1px solid #e4e6eb}
+.action-btn{flex:1;padding:10px;display:flex;justify-content:center;align-items:center;gap:6px;font-weight:600;color:#65676b;font-size:14px;cursor:pointer}
+.action-btn.live{color:#f3425f}
+.post{background:white;margin-bottom:8px;padding:12px}
+.post-head{display:flex;gap:8px;align-items:center;margin-bottom:10px}
+.post-info b{font-size:15px}.post-info div{font-size:12px;color:#65676b}
+.post-text{margin-bottom:10px;line-height:1.4}
+.post-media img,.post-media video{width:100%;border-radius:8px;max-height:400px;object-fit:cover}
+.stats{display:flex;justify-content:space-between;padding:8px 0;color:#65676b;font-size:13px;border-bottom:1px solid #e4e6eb}
+.post-btns{display:flex}
+.pbtn{flex:1;padding:10px;text-align:center;color:#65676b;font-weight:600;cursor:pointer;font-size:14px}
+.pbtn.liked{color:#1877f2}
+.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:6px 0 8px;border-top:1px solid #ddd;z-index:100}
+.nav-item{display:flex;flex-direction:column;align-items:center;font-size:10px;color:#65676b;cursor:pointer;flex:1}
+.nav-item.active{color:#1877f2}.nav-item i{font-size:22px;font-style:normal;margin-bottom:2px}
+.badge{background:#e41e3f;color:white;border-radius:50%;padding:1px 5px;font-size:10px;position:relative;top:-24px;left:10px}
+#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:16px}
+.modal-box{background:white;width:100%;max-width:500px;border-radius:12px;overflow:hidden;max-height:90vh;display:flex;flex-direction:column}
+.modal-head{padding:14px;text-align:center;font-weight:700;font-size:18px;border-bottom:1px solid #e4e6eb;position:relative}
+.modal-close{position:absolute;right:12px;top:10px;background:#e4e6eb;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
+.modal-body{padding:12px;overflow-y:auto}
+textarea{width:100%;border:none;font-size:18px;outline:none;resize:none;min-height:80px}
+.upload-box{border:2px dashed #ccd0d5;border-radius:10px;padding:20px;text-align:center;margin-top:12px;cursor:pointer;background:#f0f2f5}
+.upload-box video,.upload-box img{width:100%;border-radius:8px;margin-top:10px}
+#liveBox{display:none;position:fixed;inset:0;background:black;z-index:300;flex-direction:column}
+#liveVideo{width:100%;flex:1;object-fit:cover}
+.live-top{position:absolute;top:0;left:0;right:0;padding:12px;display:flex;justify-content:space-between;align-items:center;z-index:1}
+.live-badge{background:#e41e3f;color:white;padding:4px 10px;border-radius:6px;font-weight:700;font-size:13px;display:flex;gap:6px;align-items:center}
+.dot{width:8px;height:8px;background:white;border-radius:50%;animation:blink 1s infinite}
+@keyframes blink{50%{opacity:0}}
 </style>
 </head>
 <body>
-<div class="top"><div class="logo"><b>franko</b><i>world</i> 3.0</div><div>🔍 💬 🔔</div></div>
-<div class="feed">
+<div class="topbar">
+<div class="logo"><b>franko</b><span>world</span> 4.0</div>
+<div class="topicons"><span>🔍</span><span>💬</span><span>🔔</span></div>
+</div>
 <div class="stories">
-<div class="story" onclick="openM()" style="display:flex;flex-direction:column;align-items:center;justify-content:center;background:#fff;border:1px solid #ddd"><div style="width:40px;height:40px;background:#1877f2;border-radius:50%;color:#fff;display:flex;align-items:center;justify-content:center;font-size:24px">+</div><b style="margin-top:8px;font-size:13px">Create story</b></div>
-<div class="story" style="background:#ffb400;display:flex;align-items:center;justify-content:center;font-size:40px">🔥<span style="position:absolute;bottom:8px;left:8px;color:#fff;font-size:12px;font-weight:700">Franko's Day</span></div>
-<div class="story" style="background:#00d4aa;display:flex;align-items:center;justify-content:center;font-size:40px">🌴<span style="position:absolute;bottom:8px;left:8px;color:#fff;font-size:12px;font-weight:700">Lagos Vibes</span></div>
+<div class="story-card add" onclick="openCreate()"><div class="create-story-btn">+</div><div>Create story</div></div>
+<div class="story-card img" style="background:linear-gradient(#ff9a00,#ff5e00)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🔥</span>Franko's Day</div>
+<div class="story-card img" style="background:linear-gradient(#00c9a7,#00a896)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🌴</span>Lagos Vibes</div>
+<div class="story-card img" style="background:linear-gradient(#6a11cb,#2575fc)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🎬</span>My Reel</div>
 </div>
-<div class="create"><div class="avatar">F</div><div class="input" onclick="openM()">What's on your mind, Franko?</div><div>🖼️</div></div>
-<div id="feed"></div>
+<div class="create-post">
+<div class="avatar">F</div>
+<div class="input-fake" onclick="openCreate()">What's on your mind, Franko?</div>
+<div onclick="openCreate()">🖼️</div>
 </div>
-<div id="modal"><div class="box">
-<div style="display:flex;justify-content:space-between"><b>Create Post</b><span onclick="closeM()" style="cursor:pointer">✕</span></div>
-<textarea id="txt" placeholder="What's on your mind?"></textarea>
-<div class="preview" id="prev"></div>
-<label style="display:block;background:#f0f2f5;padding:12px;border-radius:8px;text-align:center;margin-top:10px;cursor:pointer">📸 Tap to choose photo/video<input type="file" id="file" accept="image/*,video/*" style="display:none"></label>
-<button class="btn-blue" onclick="post()">Post Now</button>
-</div></div>
+<div class="post-actions">
+<div class="action-btn" onclick="openCreate()"><span>🎥</span> Reel</div>
+<div class="action-btn live" onclick="goLive()"><span>🔴</span> Live</div>
+<div class="action-btn" onclick="openCreate()"><span>🖼️</span> Photo</div>
+</div>
+<div id="feed">
+<div class="post">
+<div class="post-head"><div class="avatar">F</div><div><b>FrankoWorld</b><div style="font-size:12px;color:#65676b">now • 🌍</div></div></div>
+<div style="margin-bottom:10px">Welcome to 4.0! Now you can POST VIDEO + GO LIVE like Facebook! 🔴🎥</div>
+<div class="post-media"><video controls src="https://www.w3schools.com/html/mov_bbb.mp4" style="background:#000"></video></div>
+</div>
+</div>
+<div class="bottom-nav">
+<div class="nav-item active"><i>🏠</i>Home</div>
+<div class="nav-item"><i>🎬</i>Reels</div>
+<div class="nav-item"><i>👥</i>Friends</div>
+<div class="nav-item"><i>🔔</i>Notifications</div>
+<div class="nav-item"><i>👤</i>Profile</div>
+</div>
+<div id="modal" onclick="if(event.target==this)closeCreate()">
+<div class="modal-box">
+<div class="modal-head">Create post<div class="modal-close" onclick="closeCreate()">✕</div></div>
+<div class="modal-body">
+<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px"><div class="avatar">F</div><b>FrankoWorld</b></div>
+<textarea id="postText" placeholder="What's on your mind, Franko?"></textarea>
+<div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
+<div id="uploadText">📸 Tap to choose photo/video<br><small>Video go play like Facebook Reels</small></div>
+<img id="previewImg" style="display:none">
+<video id="previewVid" style="display:none" controls></video>
+</div>
+<input type="file" id="fileInput" accept="image/*,video/*" style="display:none" onchange="handleFile(this)">
+<button onclick="createPost()" style="width:100%;margin-top:14px;background:#1877f2;color:white;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:16px">Post Now</button>
+</div>
+</div>
+</div>
+<div id="liveBox">
+<div class="live-top"><div class="live-badge"><span class="dot"></span> LIVE</div><div style="background:rgba(0,0,0,.6);color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="stopLive()">✕</div></div>
+<video id="liveVideo" autoplay muted playsinline></video>
+<div style="position:absolute;bottom:20px;left:12px;right:12px;background:rgba(0,0,0,.6);padding:10px;border-radius:20px;display:flex;gap:8px"><input placeholder="Say something..." style="flex:1;background:rgba(255,255,255,.2);border:none;padding:10px 14px;border-radius:20px;color:white;outline:none"><button onclick="alert('You are LIVE! 🔴')" style="background:#e41e3f;color:white;border:none;padding:10px 16px;border-radius:20px;font-weight:700">Go Live</button></div>
+</div>
 <script>
-let posts=JSON.parse(localStorage.getItem('fw3')||'null')||[{t:"Welcome to FrankoWorld 3.0! Post photo/video like Facebook 🔥",l:124,c:12,liked:false},{t:"Afro Dance 💃 challenge!",bg:"#ff6b9d",e:"💃",l:2100,c:342,liked:false}];
-let media=null, mtype=null;
-function render(){
- let f=document.getElementById('feed');f.innerHTML='';
- posts.forEach((p,i)=>{
-  f.innerHTML+=`<div class="post"><div class="post-head"><div class="avatar">F</div><div><b>FrankoWorld</b><div style="font-size:12px;color:#65676b">now • 🌍</div></div></div>${p.t?`<div style="padding:0 12px 10px">${p.t}</div>`:''}${p.img? (p.mtype=='video'?`<video class="post-img" src="${p.img}" controls></video>`:`<img class="post-img" src="${p.img}">`) : (p.bg?`<div style="height:300px;background:${p.bg};display:flex;align-items:center;justify-content:center;font-size:80px">${p.e}</div>`:'')}<div style="padding:8px 12px;display:flex;justify-content:space-between;font-size:13px;color:#65676b"><span>👍 ${p.l} likes</span><span>${p.c} comments</span></div><div class="btns"><div class="btn" onclick="like(${i})" style="color:${p.liked?'#1877f2':''}">👍 Like</div><div class="btn">💬 Comment</div><div class="btn">↗️ Share</div></div></div>`;
- });
+let selectedFile=null,selectedType=null;
+function openCreate(){document.getElementById('modal').style.display='flex'}
+function closeCreate(){document.getElementById('modal').style.display='none'}
+function handleFile(input){
+ const file=input.files[0]; if(!file)return; selectedFile=file;
+ const url=URL.createObjectURL(file);
+ if(file.type.startsWith('video')){selectedType='video';document.getElementById('previewVid').src=url;document.getElementById('previewVid').style.display='block';document.getElementById('previewImg').style.display='none';}
+ else{selectedType='image';document.getElementById('previewImg').src=url;document.getElementById('previewImg').style.display='block';document.getElementById('previewVid').style.display='none';}
+ document.getElementById('uploadText').style.display='none';
 }
-function openM(){document.getElementById('modal').classList.add('open')}
-function closeM(){document.getElementById('modal').classList.remove('open');document.getElementById('txt').value='';document.getElementById('prev').style.display='none';document.getElementById('prev').innerHTML='';media=null}
-document.getElementById('file').addEventListener('change',e=>{
- let file=e.target.files[0]; if(!file) return;
- let r=new FileReader(); r.onload=ev=>{
-  media=ev.target.result; mtype=file.type.startsWith('video')?'video':'image';
-  let pv=document.getElementById('prev'); pv.style.display='block';
-  pv.innerHTML=mtype=='video'?`<video src="${media}" controls></video>`:`<img src="${media}">`;
- }; r.readAsDataURL(file);
-});
-function post(){
- let t=document.getElementById('txt').value;
- if(!t &&!media) return alert('Write something or add photo');
- posts.unshift({t,img:media,mtype,l:0,c:0,liked:false});
- localStorage.setItem('fw3',JSON.stringify(posts));
- render(); closeM();
+function createPost(){
+ const text=document.getElementById('postText').value || "My new post!";
+ let mediaHtml="";
+ if(selectedFile){
+  const url=URL.createObjectURL(selectedFile);
+  if(selectedType==='video') mediaHtml=`<div class="post-media"><video controls src="${url}" style="background:#000"></video></div>`;
+  else mediaHtml=`<div class="post-media"><img src="${url}"></div>`;
+ }
+ const postHtml=`<div class="post"><div class="post-head"><div class="avatar">F</div><div><b>FrankoWorld</b><div style="font-size:12px;color:#65676b">now • 🌍</div></div></div><div style="margin-bottom:10px">${text}</div>${mediaHtml}<div style="display:flex;justify-content:space-between;padding:8px 0;color:#65676b;font-size:13px;border-top:1px solid #e4e6eb;margin-top:8px"><span>👍 0 likes</span><span>0 comments</span></div></div>`;
+ document.getElementById('feed').insertAdjacentHTML('afterbegin',postHtml);
+ closeCreate();
+ document.getElementById('postText').value="";selectedFile=null;document.getElementById('previewImg').style.display='none';document.getElementById('previewVid').style.display='none';document.getElementById('uploadText').style.display='block';
+ window.scrollTo({top:0,behavior:'smooth'});
 }
-function like(i){posts[i].liked=!posts[i].liked; posts[i].l+=posts[i].liked?1:-1; localStorage.setItem('fw3',JSON.stringify(posts)); render();}
-render();
+async function goLive(){
+ document.getElementById('liveBox').style.display='flex';
+ try{
+  const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
+  document.getElementById('liveVideo').srcObject=stream;
+  window.liveStream=stream;
+ }catch(e){alert('Allow camera permission!');document.getElementById('liveBox').style.display='none';}
+}
+function stopLive(){
+ if(window.liveStream){window.liveStream.getTracks().forEach(t=>t.stop())}
+ document.getElementById('liveBox').style.display='none';
+}
 </script>
 </body>
 </html>
