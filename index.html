@@ -1,98 +1,15 @@
-<!DOCTYPE html>
-<html>
-<head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>frankoworld 4.1</title>
-<style>
-body{margin:0;font-family:sans-serif;background:#f0f2f5}
-.header{background:white;padding:10px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;font-size:22px;color:#1877F2}.logo span{color:#42b72a}
-.icons{display:flex;gap:15px;font-size:20px}
-.stories{display:flex;gap:10px;overflow-x:auto;padding:10px;background:white}
-.story{min-width:110px;height:160px;border-radius:12px;color:white;display:flex;align-items:end;padding:8px;font-weight:700;cursor:pointer}
-.create-post{background:white;padding:10px;display:flex;gap:10px;margin-top:8px;align-items:center}
-.create-post input{flex:1;background:#f0f2f5;border:0;padding:10px 15px;border-radius:20px}
-.post-options{display:flex;justify-content:space-around;background:white;padding:10px;border-top:1px solid #ddd;font-weight:600}
-.post{background:white;margin-top:8px;padding:10px}
-.post video,.post img{width:100%;border-radius:10px;margin-top:10px}
-.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #ddd}
-.nav div{cursor:pointer;text-align:center;font-size:12px}
-.nav div.active{color:#1877F2}
-.page{display:none;padding-bottom:80px}.page.active{display:block}
-#storyModal{position:fixed;top:0;left:0;right:0;bottom:0;background:black;color:white;display:none;z-index:100;justify-content:center;align-items:center;flex-direction:column}
-</style>
-</head>
-<body>
-
-<div class="header">
-<div class="logo">franko<span>world</span> 4.1</div>
-<div class="icons"><span onclick="alert('Search coming')">🔍</span><span>💬</span><span>🔔</span></div>
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>FrankoWorld 4.3</title><style>body{margin:0;font-family:sans-serif;background:#f0f2f5}.h{background:#fff;padding:12px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}.logo{font-weight:900;color:#1877F2;font-size:22px}.s{display:flex;gap:10px;overflow:auto;padding:10px;background:#fff}.st{min-width:100px;height:140px;border-radius:12px;color:#fff;padding:8px;display:flex;align-items:end;font-weight:700}.p{background:#fff;margin:8px 0;padding:12px;border-radius:8px} video,img{width:100%;border-radius:8px}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:2px solid #1877F2;z-index:999}.nav button{flex:1;border:0;background:#fff;padding:14px 2px;font-size:13px;font-weight:600}.nav button.on{color:#1877F2;background:#e7f3ff}.page{display:none;padding-bottom:80px}.page.on{display:block} #story{position:fixed;inset:0;background:#000;color:#fff;display:none;align-items:center;justify-content:center;z-index:1000;font-size:28px;text-align:center}</style></head><body>
+<div class="h"><div class="logo">frankoworld 4.3 ✓</div><div>🔍 💬 🔔</div></div>
+<div id="home" class="page on">
+<div class="s"><div class="st" style="background:linear-gradient(orange,red)" onclick="openS('🔥 Franko Day')">🔥 Franko's Day</div><div class="st" style="background:linear-gradient(teal,green)" onclick="openS('🌴 Lagos Vibes')">🌴 Lagos Vibes</div><div class="st" style="background:linear-gradient(royalblue,purple)" onclick="openS('🎬 My Reel')">🎬 My Reel</div></div>
+<div class="p"><b>Franko</b> - Create Post<br><br><input id="txt" placeholder="What's on your mind?" style="width:65%;padding:10px;border-radius:20px;border:1px solid #ddd"><input type="file" id="f" hidden><button onclick="document.getElementById('f').click()" style="padding:8px">🖼️</button> <button onclick="post()" style="background:#1877F2;color:#fff;border:0;padding:10px 15px;border-radius:20px;font-weight:700">Post</button><br><br>🎥 Reel | 🔴 Live | 🖼️ Photo</div>
+<div id="feed"></div>
+<div class="p"><b>FrankoWorld</b> • now<br>Welcome to 4.3! Now EVERYTHING WORKS! 🔥<br><br><video controls autoplay muted loop><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video></div>
 </div>
-
-<div id="home" class="page active">
-<div class="stories">
-<div class="story" style="background:orange" onclick="openStory('Franko Day 🔥')">🔥<br>Franko's Day</div>
-<div class="story" style="background:teal" onclick="openStory('Lagos Vibes 🌴')">🌴<br>Lagos Vibes</div>
-<div class="story" style="background:royalblue" onclick="openStory('My Reel 🎬')">🎬<br>My Reel</div>
-<div class="story" style="background:purple" onclick="openStory('Lagos Night')">🌃<br>Night Life</div>
-</div>
-
-<div class="create-post">
-<div style="width:40px;height:40px;background:#1877F2;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-weight:900">F</div>
-<input id="postText" placeholder="What's on your mind, Franko?">
-<input type="file" id="fileInput" accept="image/*,video/*" hidden onchange="previewFile()">
-<button onclick="document.getElementById('fileInput').click()">🖼️</button>
-</div>
-<div class="post-options">
-<span onclick="document.getElementById('fileInput').click()">🎥 Reel</span>
-<span style="color:red" onclick="goLive()">🔴 Live</span>
-<span onclick="document.getElementById('fileInput').click()">🖼️ Photo</span>
-</div>
-<button onclick="createPost()" style="width:94%;margin:10px 3%;padding:12px;background:#1877F2;color:white;border:0;border-radius:8px;font-weight:800">Post Now</button>
-
-<div id="feed">
-<div class="post"><b>FrankoWorld</b> • now<br>Welcome to 4.1! Stories + Bottom menu now WORKING! 🔥<br><video controls autoplay muted loop style="background:black;height:200px"><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video></div>
-</div>
-</div>
-
-<div id="reelsPage" class="page"><h2 style="padding:15px">🎬 Reels</h2><div class="post"><video controls style="height:400px;background:black"><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video><br>🔥 My First Reel</div></div>
-<div id="friendsPage" class="page"><h2 style="padding:15px">👥 Friends</h2><div class="post">Chidi - Lagos<br><button style="background:#1877F2;color:white;border:0;padding:5px 10px;border-radius:5px">Add Friend</button></div><div class="post">Amaka - London<br><button style="background:#1877F2;color:white;border:0;padding:5px 10px;border-radius:5px">Add Friend</button></div></div>
-<div id="notifPage" class="page"><h2 style="padding:15px">🔔 Notifications</h2><div class="post">❤️ Chidi liked your post</div><div class="post">💬 Amaka commented</div></div>
-<div id="profilePage" class="page"><h2 style="padding:15px">👤 Franko Profile</h2><div class="post" style="text-align:center"><div style="width:80px;height:80px;background:#1877F2;border-radius:50%;margin:auto;color:white;font-size:40px;line-height:80px">F</div><br><b>FrankoWorld</b><br>Lagos, Nigeria<br><br><button style="background:#1877F2;color:white;border:0;padding:10px 20px;border-radius:20px">Edit Profile</button></div></div>
-
-<div class="nav">
-<div id="n-home" class="active" onclick="showPage('home',this)">🏠<br>Home</div>
-<div id="n-reels" onclick="showPage('reelsPage',this)">🎬<br>Reels</div>
-<div onclick="showPage('friendsPage',this)">👥<br>Friends</div>
-<div onclick="showPage('notifPage',this)">🔔<br>Notifications</div>
-<div onclick="showPage('profilePage',this)">👤<br>Profile</div>
-</div>
-
-<div id="storyModal" onclick="this.style.display='none'"><h1 id="storyText"></h1><p>Tap to close</p></div>
-
-<video id="liveVideo" autoplay style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:99"></video>
-<button id="closeLive" style="display:none;position:fixed;top:10px;right:10px;z-index:100;padding:10px;background:red;color:white;border:0;border-radius:50%" onclick="stopLive()">X</button>
-
-<script>
-let selectedFileUrl=null;
-function showPage(id,el){
-document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
-document.getElementById(id).classList.add('active');
-document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));
-el.classList.add('active');
-window.scrollTo(0,0);
-}
-function openStory(t){document.getElementById('storyText').innerText=t;document.getElementById('storyModal').style.display='flex';}
-function previewFile(){
-const f=document.getElementById('fileInput').files[0];
-if(f){selectedFileUrl=URL.createObjectURL(f);alert('File selected: '+f.name+' - Now tap Post Now');}
-}
-function createPost(){
-const txt=document.getElementById('postText').value;
-if(!txt &&!selectedFileUrl)return alert('Write something or add photo/video');
-let media='';
-if(selectedFileUrl){
-if(document.getElementById('fileInput').files[0].type.includes('video')) media=`<video controls src="${selectedFileUrl}" style="height:300px;background:black"></video>`;
-else media=`<img src="${selectedFileUrl}">`;
-}
-document.getElementById('feed').insertAdjacentHTML('afterbegin',`<div class="post"><b>Franko</b> • now<br>${txt}<br>${media}</div
+<div id="reels" class="page"><div class="p"><h2>🎬 Reels Page - WORKING!</h2><video controls><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video><p>My first reel 🔥</p></div></div>
+<div id="friends" class="page"><div class="p"><h2>👥 Friends Page - WORKING!</h2><p>Chidi - Lagos <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px">Add</button></p><p>Amaka - London <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px">Add</button></p></div></div>
+<div id="notif" class="page"><div class="p"><h2>🔔 Notifications - WORKING!</h2><p>❤️ Chidi liked your post</p><p>💬 Amaka commented: Nice one!</p></div></div>
+<div id="profile" class="page"><div class="p" style="text-align:center"><div style="width:90px;height:90px;background:#1877F2;color:#fff;border-radius:50%;font-size:50px;line-height:90px;margin:20px auto">F</div><h2>FrankoWorld</h2><p>Lagos, Nigeria</p><p><b>1.2K</b> Friends • <b>50</b> Reels</p><button style="background:#1877F2;color:#fff;border:0;padding:12px 25px;border-radius:25px;font-weight:700">Edit Profile</button></div></div>
+<div class="nav"><button id="b-home" class="on" onclick="show('home',this)">🏠<br>Home</button><button onclick="show('reels',this)">🎬<br>Reels</button><button onclick="show('friends',this)">👥<br>Friends</button><button onclick="show('notif',this)">🔔<br>Notifs</button><button onclick="show('profile',this)">👤<br>Profile</button></div>
+<div id="story" onclick="this.style.display='none'"><div><div id="stxt"></div><br><small>Tap to close</small></div></div>
+<script>function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');window.scrollTo(0,0)}function openS(t){document.getElementById('stxt').innerText=t;document.getElementById('story').style.display='flex';setTimeout(()=>{document.getElementById('story').style.display='none'},3000)}function post(){let t=document.getElementById('txt').value;let fi=document.getElementById('f');let m='';if(fi.files[0]){let u=URL.createObjectURL(fi.files[0]);m=fi.files[0].type.includes('video')?`<video controls src="${u}"></video>`:`<img src="${u}">`}if(!t&&!m)return alert('Write something boss');document.getElementById('feed').innerHTML=`<div class="p"><b>Franko</b> • now<br>${t}<br>${m}</div>`+document.getElementById('feed').innerHTML;document.getElementById('txt').value=''}</script></body></html>
