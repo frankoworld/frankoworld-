@@ -1,149 +1,51 @@
-<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1">
-<title>FrankoWorld V1.1 - Secure</title>
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FrankoWorld V2 🌍</title>
 <style>
-body{margin:0;font-family:system-ui;background:#0f0f0f;color:#fff}
-.h{display:flex;justify-content:space-between;padding:12px;background:#000;border-bottom:1px solid #222;position:sticky;top:0;z-index:10}
-.logo{font-weight:900;font-size:20px}.logo span{color:#ff3c00}
-.p{max-width:600px;margin:0 auto;padding:12px}
-.card{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:14px;margin-bottom:12px}
-input,textarea{width:100%;background:#222;border:1px solid #333;color:#fff;padding:12px;border-radius:8px;margin:6px 0;box-sizing:border-box}
-button{background:#ff3c00;color:#fff;border:none;padding:10px 16px;border-radius:8px;font-weight:700;cursor:pointer}
-.small{color:#888;font-size:12px}
-.post{background:#1a1a1a;border:1px solid #2a2a2a;border-radius:12px;padding:12px;margin-bottom:12px}
-.post img,.post video{width:100%;border-radius:8px;margin-top:8px}
-.actions{display:flex;gap:16px;margin-top:10px;font-size:14px}
-.actions span{cursor:pointer}
-</style></head><body>
-<div class="h"><div class="logo">FRANKO<span>WORLD</span> V1.1</div><div id="uInfo" class="small">Not logged in</div></div>
-<div class="p">
+*{margin:0;padding:0;box-sizing:border-box;font-family:system-ui,sans-serif}
+body{background:#0a0a0a;color:#fff}
+.header{background:linear-gradient(135deg,#ff6a00,#ffcc00);padding:20px;text-align:center;position:sticky;top:0;z-index:99}
+.header h1{color:#000;font-weight:900;font-size:28px}
+.header p{color:#000;font-weight:700;font-size:14px}
+.container{max-width:600px;margin:0 auto;padding:16px}
+.tabs{display:flex;gap:8px;margin-bottom:16px}
+.tab{flex:1;text-align:center;padding:12px;background:#1a1a1a;border-radius:12px;border:1px solid #333;cursor:pointer;font-weight:600}
+.tab.active{background:#ffcc00;color:#000;font-weight:900}
+.card{background:#1a1a1a;border-radius:16px;padding:16px;margin-bottom:16px;border:1px solid #2a2a2a}
+.input{width:100%;background:#262626;border:1px solid #444;border-radius:12px;padding:14px;color:#fff;margin-bottom:10px;font-size:15px}
+.btn{width:100%;background:linear-gradient(135deg,#ff6a00,#ffcc00);color:#000;border:none;border-radius:12px;padding:14px;font-weight:900;font-size:16px;cursor:pointer}
+.post{background:#1e1e1e;border-radius:14px;padding:14px;margin-bottom:12px;border-left:3px solid #ff6a00}
+</style>
+</head>
+<body>
+<div class="header"><h1>FRANKO WORLD 🌍</h1><p>Naija No.1 Comedy Hub 🔥</p></div>
+<div class="container">
+<div class="tabs">
+<div class="tab active" onclick="showTab('feed',this)">Feed</div>
+<div class="tab" onclick="showTab('videos',this)">Videos</div>
+<div class="tab" onclick="showTab('about',this)">About</div>
+</div>
+<div id="feed">
 <div class="card">
-<b>🔐 Account</b><br>
-<input id="email" placeholder="Email">
-<input id="pass" type="password" placeholder="Password">
-<input id="username" placeholder="Username (e.g Franko)">
-<div style="display:flex;gap:8px;margin-top:8px">
-<button onclick="signup()">Sign Up</button>
-<button onclick="login()" style="background:#333">Login</button>
-<button onclick="logout()" style="background:#222">Logout</button>
+<input class="input" id="user" placeholder="Your username (e.g. Franko)">
+<input class="input" id="text" placeholder="What's happening? Share comedy...">
+<button class="btn" onclick="makePost()">Post to World 🚀</button>
 </div>
-<div id="aMsg" class="small" style="margin-top:8px"></div>
+<div id="posts"></div>
 </div>
-
-<div class="card">
-<b>📝 Create Post</b><br>
-<textarea id="txt" placeholder="What's happening?"></textarea>
-<input type="file" id="file" accept="image/*,video/*">
-<button onclick="createPost()" id="pBtn">Post to World</button>
-<div id="pMsg" class="small"></div>
+<div id="videos" style="display:none"><div class="card"><h3>🎬 Videos</h3><p style="color:#aaa;margin-top:10px">Your comedy skits go show here! Upload coming soon.</p></div></div>
+<div id="about" style="display:none"><div class="card"><h3>About</h3><p style="color:#ccc;margin-top:10px;line-height:1.6">FrankoWorld built by Franko. From CodePen to world! Naija to the world 🌍<br><br>✅ No email wahala<br>✅ Instant posting<br>✅ Made in Naija</p></div></div>
 </div>
-
-<div id="feed"><div class="small">Loading feed... Run SQL in Supabase first if empty</div></div>
-</div>
-
 <script>
-const SUPABASE_URL="https://jayrsmwemaraibmbvktm.supabase.co";
-const SUPABASE_KEY="sb_publishable_XpGNPeMHY6hmkoajBKC2gg_dUrcQGVg";
-const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
-let user=null;
-
-async function checkUser(){
- const {data}=await sb.auth.getUser();
- user=data.user;
- document.getElementById('uInfo').innerText=user?"✅ "+user.email:"Not logged in";
- if(user) document.getElementById('aMsg').innerText="Logged in: "+user.email;
-}
-checkUser();
-
-async function signup(){
- const email=document.getElementById('email').value;
- const pass=document.getElementById('pass').value;
- const username=document.getElementById('username').value || email.split('@')[0];
- if(!email||!pass){alert("Put email & password");return}
- const {data,error}=await sb.auth.signUp({email,password:pass});
- if(error){document.getElementById('aMsg').innerText=error.message;return}
- if(data.user){
-   await sb.from('profiles').insert({id:data.user.id, username:username});
-   document.getElementById('aMsg').innerText="Account created! Now Login.";
- }
- checkUser();
-}
-async function login(){
- const email=document.getElementById('email').value;
- const pass=document.getElementById('pass').value;
- const {error}=await sb.auth.signInWithPassword({email,password:pass});
- document.getElementById('aMsg').innerText=error?error.message:"Logged in!";
- checkUser(); loadFeed();
-}
-async function logout(){await sb.auth.signOut();user=null;checkUser();document.getElementById('aMsg').innerText="Logged out";}
-
-async function createPost(){
- if(!user){alert("Login first!");return}
- const txt=document.getElementById('txt').value;
- const file=document.getElementById('file').files[0];
- if(!txt&&!file){alert("Type something or pick image");return}
- document.getElementById('pBtn').disabled=true;
- document.getElementById('pMsg').innerText="Posting...";
- let media_url=null;
- if(file){
-   const name=Date.now()+"_"+file.name.replace(/\s/g,'_');
-   const {error}=await sb.storage.from('posts').upload(name,file);
-   if(error){document.getElementById('pMsg').innerText=error.message;document.getElementById('pBtn').disabled=false;return}
-   const {data}=sb.storage.from('posts').getPublicUrl(name);
-   media_url=data.publicUrl;
- }
- const {error}=await sb.from('posts').insert({user_id:user.id, content:txt, media_url:media_url});
- document.getElementById('pMsg').innerText=error?error.message:"Posted! 🔥";
- document.getElementById('txt').value="";document.getElementById('file').value="";
- document.getElementById('pBtn').disabled=false;
- loadFeed();
-}
-
-async function loadFeed(){
- const {data:posts,error}=await sb.from('posts').select('*, profiles(username), likes(count), comments(count)').order('created_at',{ascending:false}).limit(50);
- if(error){
-   // fallback simple query
-   const {data:d2,error:e2}=await sb.from('posts').select('*').order('created_at',{ascending:false}).limit(50);
-   if(e2){document.getElementById('feed').innerHTML="<div class='small'>"+e2.message+"<br>Go Supabase > SQL Editor > Run secure SQL I gave you</div>";return}
-   renderFeed(d2);
-   return
- }
- renderFeed(posts);
-}
-function renderFeed(posts){
- if(!posts||!posts.length){document.getElementById('feed').innerHTML="<div class='small'>No posts yet. Be first!</div>";return}
- let html="";
- posts.forEach(p=>{
-   const name=p.profiles? p.profiles.username : "User";
-   const isImg=p.media_url && p.media_url.match(/\.(jpeg|jpg|png|gif|webp)/i);
-   const media=p.media_url? (isImg?`<img src="${p.media_url}">`:`<video src="${p.media_url}" controls></video>`) : "";
-   html+=`<div class="post">
-   <div style="display:flex;justify-content:space-between"><b>${name}</b><span class="small">${new Date(p.created_at).toLocaleString()}</span></div>
-   <div style="margin:8px 0">${(p.content||"")}</div>
-   ${media}
-   <div class="actions">
-   <span onclick="likePost('${p.id}')">❤️ Like</span>
-   <span onclick="commentNow('${p.id}')">💬 Comment</span>
-   ${user && p.user_id===user.id? `<span onclick="delPost('${p.id}')" style="color:#ff4444">🗑️ Delete</span>` : ""}
-   </div>
-   </div>`;
- });
- document.getElementById('feed').innerHTML=html;
-}
-async function likePost(id){
- if(!user){alert("Login to like");return}
- const {error}=await sb.from('likes').insert({post_id:id, user_id:user.id});
- if(error && error.message.includes("duplicate")){await sb.from('likes').delete().eq('post_id',id).eq('user_id',user.id); alert("Unliked!");}
- else if(error){alert(error.message);} else {alert("Liked! ❤️");} loadFeed();
-}
-async function commentNow(id){
- if(!user){alert("Login first");return}
- const c=prompt("Your comment:");
- if(!c) return;
- const {error}=await sb.from('comments').insert({post_id:id, user_id:user.id, content:c});
- if(error) alert(error.message); else {alert("Comment added!"); loadFeed();}
-}
-async function delPost(id){if(!confirm("Delete this post?")) return; const {error}=await sb.from('posts').delete().eq('id',id); if(error) alert(error.message); else loadFeed();}
-loadFeed();
-setInterval(loadFeed,10000);
-</script></body></html>
+let posts=JSON.parse(localStorage.getItem('fw_posts')||'[]');
+if(posts.length==0){posts=[{u:'Franko',t:'Welcome to FrankoWorld V2! 🌍 No more 22 secs error! First official post! 🔥',d:'Just now'}];}
+function render(){document.getElementById('posts').innerHTML=posts.map(p=>`<div class=post><b style=color:#ffcc00>@${p.u}</b><p style=margin:8px 0>${p.t}</p><small style=color:#777>${p.d}</small></div>`).join('');}
+function makePost(){let u=document.getElementById('user').value||'Anonymous';let t=document.getElementById('text').value;if(!t)return alert('Type something boss!');posts.unshift({u:u,t:t,d:new Date().toLocaleString()});localStorage.setItem('fw_posts',JSON.stringify(posts));document.getElementById('text').value='';render();}
+function showTab(name,el){document.getElementById('feed').style.display=name=='feed'?'block':'none';document.getElementById('videos').style.display=name=='videos'?'block':'none';document.getElementById('about').style.display=name=='about'?'block':'none';document.querySelectorAll('.tab').forEach(x=>x.classList.remove('active'));el.classList.add('active');}
+render();
+</script>
+</body>
+</html>
