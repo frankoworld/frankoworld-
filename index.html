@@ -1,148 +1,98 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>FrankoWorld 4.0 - Facebook Edition</title>
+<title>frankoworld 4.1</title>
 <style>
-*{margin:0;padding:0;box-sizing:border-box;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto}
-body{background:#f0f2f5;padding-bottom:70px}
-.topbar{position:sticky;top:0;z-index:100;background:white;display:flex;justify-content:space-between;align-items:center;padding:10px 12px;box-shadow:0 1px 2px rgba(0,0,0,.1)}
-.logo{font-size:24px;font-weight:900}.logo b{color:#1877f2}.logo span{color:#42b72a}
-.topicons{display:flex;gap:14px;font-size:22px}
-.stories{display:flex;gap:8px;overflow-x:auto;padding:12px;background:white;margin-bottom:8px;scrollbar-width:none}
-.story-card{min-width:110px;height:180px;border-radius:12px;position:relative;overflow:hidden;flex-shrink:0;box-shadow:0 1px 2px rgba(0,0,0,.2);cursor:pointer}
-.story-card.add{background:#f0f2f5;border:1px solid #ddd;display:flex;flex-direction:column;align-items:center;justify-content:center}
-.create-story-btn{width:44px;height:44px;background:#1877f2;border-radius:50%;display:flex;align-items:center;justify-content:center;color:white;font-size:24px;margin-bottom:8px}
-.story-card.img{color:white;display:flex;align-items:end;padding:8px;font-weight:700;font-size:13px}
-.create-post{background:white;padding:12px;display:flex;gap:8px;align-items:center;margin-bottom:8px}
-.avatar{width:40px;height:40px;border-radius:50%;background:linear-gradient(135deg,#1877f2,#42b72a);color:white;display:flex;align-items:center;justify-content:center;font-weight:900;flex-shrink:0}
-.input-fake{flex:1;background:#f0f2f5;padding:10px 14px;border-radius:20px;color:#65676b;cursor:pointer}
-.post-actions{display:flex;background:white;border-top:1px solid #e4e6eb}
-.action-btn{flex:1;padding:10px;display:flex;justify-content:center;align-items:center;gap:6px;font-weight:600;color:#65676b;font-size:14px;cursor:pointer}
-.action-btn.live{color:#f3425f}
-.post{background:white;margin-bottom:8px;padding:12px}
-.post-head{display:flex;gap:8px;align-items:center;margin-bottom:10px}
-.post-info b{font-size:15px}.post-info div{font-size:12px;color:#65676b}
-.post-text{margin-bottom:10px;line-height:1.4}
-.post-media img,.post-media video{width:100%;border-radius:8px;max-height:400px;object-fit:cover}
-.stats{display:flex;justify-content:space-between;padding:8px 0;color:#65676b;font-size:13px;border-bottom:1px solid #e4e6eb}
-.post-btns{display:flex}
-.pbtn{flex:1;padding:10px;text-align:center;color:#65676b;font-weight:600;cursor:pointer;font-size:14px}
-.pbtn.liked{color:#1877f2}
-.bottom-nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:6px 0 8px;border-top:1px solid #ddd;z-index:100}
-.nav-item{display:flex;flex-direction:column;align-items:center;font-size:10px;color:#65676b;cursor:pointer;flex:1}
-.nav-item.active{color:#1877f2}.nav-item i{font-size:22px;font-style:normal;margin-bottom:2px}
-.badge{background:#e41e3f;color:white;border-radius:50%;padding:1px 5px;font-size:10px;position:relative;top:-24px;left:10px}
-#modal{display:none;position:fixed;inset:0;background:rgba(0,0,0,.5);z-index:200;align-items:center;justify-content:center;padding:16px}
-.modal-box{background:white;width:100%;max-width:500px;border-radius:12px;overflow:hidden;max-height:90vh;display:flex;flex-direction:column}
-.modal-head{padding:14px;text-align:center;font-weight:700;font-size:18px;border-bottom:1px solid #e4e6eb;position:relative}
-.modal-close{position:absolute;right:12px;top:10px;background:#e4e6eb;width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer}
-.modal-body{padding:12px;overflow-y:auto}
-textarea{width:100%;border:none;font-size:18px;outline:none;resize:none;min-height:80px}
-.upload-box{border:2px dashed #ccd0d5;border-radius:10px;padding:20px;text-align:center;margin-top:12px;cursor:pointer;background:#f0f2f5}
-.upload-box video,.upload-box img{width:100%;border-radius:8px;margin-top:10px}
-#liveBox{display:none;position:fixed;inset:0;background:black;z-index:300;flex-direction:column}
-#liveVideo{width:100%;flex:1;object-fit:cover}
-.live-top{position:absolute;top:0;left:0;right:0;padding:12px;display:flex;justify-content:space-between;align-items:center;z-index:1}
-.live-badge{background:#e41e3f;color:white;padding:4px 10px;border-radius:6px;font-weight:700;font-size:13px;display:flex;gap:6px;align-items:center}
-.dot{width:8px;height:8px;background:white;border-radius:50%;animation:blink 1s infinite}
-@keyframes blink{50%{opacity:0}}
+body{margin:0;font-family:sans-serif;background:#f0f2f5}
+.header{background:white;padding:10px;display:flex;justify-content:space-between;align-items:center;position:sticky;top:0;z-index:10}
+.logo{font-weight:900;font-size:22px;color:#1877F2}.logo span{color:#42b72a}
+.icons{display:flex;gap:15px;font-size:20px}
+.stories{display:flex;gap:10px;overflow-x:auto;padding:10px;background:white}
+.story{min-width:110px;height:160px;border-radius:12px;color:white;display:flex;align-items:end;padding:8px;font-weight:700;cursor:pointer}
+.create-post{background:white;padding:10px;display:flex;gap:10px;margin-top:8px;align-items:center}
+.create-post input{flex:1;background:#f0f2f5;border:0;padding:10px 15px;border-radius:20px}
+.post-options{display:flex;justify-content:space-around;background:white;padding:10px;border-top:1px solid #ddd;font-weight:600}
+.post{background:white;margin-top:8px;padding:10px}
+.post video,.post img{width:100%;border-radius:10px;margin-top:10px}
+.nav{position:fixed;bottom:0;left:0;right:0;background:white;display:flex;justify-content:space-around;padding:10px 0;border-top:1px solid #ddd}
+.nav div{cursor:pointer;text-align:center;font-size:12px}
+.nav div.active{color:#1877F2}
+.page{display:none;padding-bottom:80px}.page.active{display:block}
+#storyModal{position:fixed;top:0;left:0;right:0;bottom:0;background:black;color:white;display:none;z-index:100;justify-content:center;align-items:center;flex-direction:column}
 </style>
 </head>
 <body>
-<div class="topbar">
-<div class="logo"><b>franko</b><span>world</span> 4.0</div>
-<div class="topicons"><span>🔍</span><span>💬</span><span>🔔</span></div>
+
+<div class="header">
+<div class="logo">franko<span>world</span> 4.1</div>
+<div class="icons"><span onclick="alert('Search coming')">🔍</span><span>💬</span><span>🔔</span></div>
 </div>
+
+<div id="home" class="page active">
 <div class="stories">
-<div class="story-card add" onclick="openCreate()"><div class="create-story-btn">+</div><div>Create story</div></div>
-<div class="story-card img" style="background:linear-gradient(#ff9a00,#ff5e00)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🔥</span>Franko's Day</div>
-<div class="story-card img" style="background:linear-gradient(#00c9a7,#00a896)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🌴</span>Lagos Vibes</div>
-<div class="story-card img" style="background:linear-gradient(#6a11cb,#2575fc)"><span style="font-size:40px;position:absolute;top:40%;left:50%;transform:translate(-50%,-50%)">🎬</span>My Reel</div>
+<div class="story" style="background:orange" onclick="openStory('Franko Day 🔥')">🔥<br>Franko's Day</div>
+<div class="story" style="background:teal" onclick="openStory('Lagos Vibes 🌴')">🌴<br>Lagos Vibes</div>
+<div class="story" style="background:royalblue" onclick="openStory('My Reel 🎬')">🎬<br>My Reel</div>
+<div class="story" style="background:purple" onclick="openStory('Lagos Night')">🌃<br>Night Life</div>
 </div>
+
 <div class="create-post">
-<div class="avatar">F</div>
-<div class="input-fake" onclick="openCreate()">What's on your mind, Franko?</div>
-<div onclick="openCreate()">🖼️</div>
+<div style="width:40px;height:40px;background:#1877F2;border-radius:50%;color:white;display:flex;align-items:center;justify-content:center;font-weight:900">F</div>
+<input id="postText" placeholder="What's on your mind, Franko?">
+<input type="file" id="fileInput" accept="image/*,video/*" hidden onchange="previewFile()">
+<button onclick="document.getElementById('fileInput').click()">🖼️</button>
 </div>
-<div class="post-actions">
-<div class="action-btn" onclick="openCreate()"><span>🎥</span> Reel</div>
-<div class="action-btn live" onclick="goLive()"><span>🔴</span> Live</div>
-<div class="action-btn" onclick="openCreate()"><span>🖼️</span> Photo</div>
+<div class="post-options">
+<span onclick="document.getElementById('fileInput').click()">🎥 Reel</span>
+<span style="color:red" onclick="goLive()">🔴 Live</span>
+<span onclick="document.getElementById('fileInput').click()">🖼️ Photo</span>
 </div>
+<button onclick="createPost()" style="width:94%;margin:10px 3%;padding:12px;background:#1877F2;color:white;border:0;border-radius:8px;font-weight:800">Post Now</button>
+
 <div id="feed">
-<div class="post">
-<div class="post-head"><div class="avatar">F</div><div><b>FrankoWorld</b><div style="font-size:12px;color:#65676b">now • 🌍</div></div></div>
-<div style="margin-bottom:10px">Welcome to 4.0! Now you can POST VIDEO + GO LIVE like Facebook! 🔴🎥</div>
-<div class="post-media"><video controls src="https://www.w3schools.com/html/mov_bbb.mp4" style="background:#000"></video></div>
+<div class="post"><b>FrankoWorld</b> • now<br>Welcome to 4.1! Stories + Bottom menu now WORKING! 🔥<br><video controls autoplay muted loop style="background:black;height:200px"><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video></div>
 </div>
 </div>
-<div class="bottom-nav">
-<div class="nav-item active"><i>🏠</i>Home</div>
-<div class="nav-item"><i>🎬</i>Reels</div>
-<div class="nav-item"><i>👥</i>Friends</div>
-<div class="nav-item"><i>🔔</i>Notifications</div>
-<div class="nav-item"><i>👤</i>Profile</div>
+
+<div id="reelsPage" class="page"><h2 style="padding:15px">🎬 Reels</h2><div class="post"><video controls style="height:400px;background:black"><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video><br>🔥 My First Reel</div></div>
+<div id="friendsPage" class="page"><h2 style="padding:15px">👥 Friends</h2><div class="post">Chidi - Lagos<br><button style="background:#1877F2;color:white;border:0;padding:5px 10px;border-radius:5px">Add Friend</button></div><div class="post">Amaka - London<br><button style="background:#1877F2;color:white;border:0;padding:5px 10px;border-radius:5px">Add Friend</button></div></div>
+<div id="notifPage" class="page"><h2 style="padding:15px">🔔 Notifications</h2><div class="post">❤️ Chidi liked your post</div><div class="post">💬 Amaka commented</div></div>
+<div id="profilePage" class="page"><h2 style="padding:15px">👤 Franko Profile</h2><div class="post" style="text-align:center"><div style="width:80px;height:80px;background:#1877F2;border-radius:50%;margin:auto;color:white;font-size:40px;line-height:80px">F</div><br><b>FrankoWorld</b><br>Lagos, Nigeria<br><br><button style="background:#1877F2;color:white;border:0;padding:10px 20px;border-radius:20px">Edit Profile</button></div></div>
+
+<div class="nav">
+<div id="n-home" class="active" onclick="showPage('home',this)">🏠<br>Home</div>
+<div id="n-reels" onclick="showPage('reelsPage',this)">🎬<br>Reels</div>
+<div onclick="showPage('friendsPage',this)">👥<br>Friends</div>
+<div onclick="showPage('notifPage',this)">🔔<br>Notifications</div>
+<div onclick="showPage('profilePage',this)">👤<br>Profile</div>
 </div>
-<div id="modal" onclick="if(event.target==this)closeCreate()">
-<div class="modal-box">
-<div class="modal-head">Create post<div class="modal-close" onclick="closeCreate()">✕</div></div>
-<div class="modal-body">
-<div style="display:flex;gap:8px;align-items:center;margin-bottom:12px"><div class="avatar">F</div><b>FrankoWorld</b></div>
-<textarea id="postText" placeholder="What's on your mind, Franko?"></textarea>
-<div class="upload-box" id="uploadBox" onclick="document.getElementById('fileInput').click()">
-<div id="uploadText">📸 Tap to choose photo/video<br><small>Video go play like Facebook Reels</small></div>
-<img id="previewImg" style="display:none">
-<video id="previewVid" style="display:none" controls></video>
-</div>
-<input type="file" id="fileInput" accept="image/*,video/*" style="display:none" onchange="handleFile(this)">
-<button onclick="createPost()" style="width:100%;margin-top:14px;background:#1877f2;color:white;border:none;padding:12px;border-radius:8px;font-weight:700;font-size:16px">Post Now</button>
-</div>
-</div>
-</div>
-<div id="liveBox">
-<div class="live-top"><div class="live-badge"><span class="dot"></span> LIVE</div><div style="background:rgba(0,0,0,.6);color:white;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer" onclick="stopLive()">✕</div></div>
-<video id="liveVideo" autoplay muted playsinline></video>
-<div style="position:absolute;bottom:20px;left:12px;right:12px;background:rgba(0,0,0,.6);padding:10px;border-radius:20px;display:flex;gap:8px"><input placeholder="Say something..." style="flex:1;background:rgba(255,255,255,.2);border:none;padding:10px 14px;border-radius:20px;color:white;outline:none"><button onclick="alert('You are LIVE! 🔴')" style="background:#e41e3f;color:white;border:none;padding:10px 16px;border-radius:20px;font-weight:700">Go Live</button></div>
-</div>
+
+<div id="storyModal" onclick="this.style.display='none'"><h1 id="storyText"></h1><p>Tap to close</p></div>
+
+<video id="liveVideo" autoplay style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:black;z-index:99"></video>
+<button id="closeLive" style="display:none;position:fixed;top:10px;right:10px;z-index:100;padding:10px;background:red;color:white;border:0;border-radius:50%" onclick="stopLive()">X</button>
+
 <script>
-let selectedFile=null,selectedType=null;
-function openCreate(){document.getElementById('modal').style.display='flex'}
-function closeCreate(){document.getElementById('modal').style.display='none'}
-function handleFile(input){
- const file=input.files[0]; if(!file)return; selectedFile=file;
- const url=URL.createObjectURL(file);
- if(file.type.startsWith('video')){selectedType='video';document.getElementById('previewVid').src=url;document.getElementById('previewVid').style.display='block';document.getElementById('previewImg').style.display='none';}
- else{selectedType='image';document.getElementById('previewImg').src=url;document.getElementById('previewImg').style.display='block';document.getElementById('previewVid').style.display='none';}
- document.getElementById('uploadText').style.display='none';
+let selectedFileUrl=null;
+function showPage(id,el){
+document.querySelectorAll('.page').forEach(p=>p.classList.remove('active'));
+document.getElementById(id).classList.add('active');
+document.querySelectorAll('.nav div').forEach(d=>d.classList.remove('active'));
+el.classList.add('active');
+window.scrollTo(0,0);
+}
+function openStory(t){document.getElementById('storyText').innerText=t;document.getElementById('storyModal').style.display='flex';}
+function previewFile(){
+const f=document.getElementById('fileInput').files[0];
+if(f){selectedFileUrl=URL.createObjectURL(f);alert('File selected: '+f.name+' - Now tap Post Now');}
 }
 function createPost(){
- const text=document.getElementById('postText').value || "My new post!";
- let mediaHtml="";
- if(selectedFile){
-  const url=URL.createObjectURL(selectedFile);
-  if(selectedType==='video') mediaHtml=`<div class="post-media"><video controls src="${url}" style="background:#000"></video></div>`;
-  else mediaHtml=`<div class="post-media"><img src="${url}"></div>`;
- }
- const postHtml=`<div class="post"><div class="post-head"><div class="avatar">F</div><div><b>FrankoWorld</b><div style="font-size:12px;color:#65676b">now • 🌍</div></div></div><div style="margin-bottom:10px">${text}</div>${mediaHtml}<div style="display:flex;justify-content:space-between;padding:8px 0;color:#65676b;font-size:13px;border-top:1px solid #e4e6eb;margin-top:8px"><span>👍 0 likes</span><span>0 comments</span></div></div>`;
- document.getElementById('feed').insertAdjacentHTML('afterbegin',postHtml);
- closeCreate();
- document.getElementById('postText').value="";selectedFile=null;document.getElementById('previewImg').style.display='none';document.getElementById('previewVid').style.display='none';document.getElementById('uploadText').style.display='block';
- window.scrollTo({top:0,behavior:'smooth'});
+const txt=document.getElementById('postText').value;
+if(!txt &&!selectedFileUrl)return alert('Write something or add photo/video');
+let media='';
+if(selectedFileUrl){
+if(document.getElementById('fileInput').files[0].type.includes('video')) media=`<video controls src="${selectedFileUrl}" style="height:300px;background:black"></video>`;
+else media=`<img src="${selectedFileUrl}">`;
 }
-async function goLive(){
- document.getElementById('liveBox').style.display='flex';
- try{
-  const stream=await navigator.mediaDevices.getUserMedia({video:true,audio:true});
-  document.getElementById('liveVideo').srcObject=stream;
-  window.liveStream=stream;
- }catch(e){alert('Allow camera permission!');document.getElementById('liveBox').style.display='none';}
-}
-function stopLive(){
- if(window.liveStream){window.liveStream.getTracks().forEach(t=>t.stop())}
- document.getElementById('liveBox').style.display='none';
-}
-</script>
-</body>
-</html>
+document.getElementById('feed').insertAdjacentHTML('afterbegin',`<div class="post"><b>Franko</b> • now<br>${txt}<br>${media}</div
