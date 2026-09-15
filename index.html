@@ -1,15 +1,54 @@
-<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>FrankoWorld 4.3</title><style>body{margin:0;font-family:sans-serif;background:#f0f2f5}.h{background:#fff;padding:12px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}.logo{font-weight:900;color:#1877F2;font-size:22px}.s{display:flex;gap:10px;overflow:auto;padding:10px;background:#fff}.st{min-width:100px;height:140px;border-radius:12px;color:#fff;padding:8px;display:flex;align-items:end;font-weight:700}.p{background:#fff;margin:8px 0;padding:12px;border-radius:8px} video,img{width:100%;border-radius:8px}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:2px solid #1877F2;z-index:999}.nav button{flex:1;border:0;background:#fff;padding:14px 2px;font-size:13px;font-weight:600}.nav button.on{color:#1877F2;background:#e7f3ff}.page{display:none;padding-bottom:80px}.page.on{display:block} #story{position:fixed;inset:0;background:#000;color:#fff;display:none;align-items:center;justify-content:center;z-index:1000;font-size:28px;text-align:center}</style></head><body>
-<div class="h"><div class="logo">frankoworld 4.3 ✓</div><div>🔍 💬 🔔</div></div>
+<!DOCTYPE html><html><head><meta name="viewport" content="width=device-width,initial-scale=1"><title>FrankoWorld 4.4</title><style>body{margin:0;font-family:sans-serif;background:#f0f2f5}.h{background:#fff;padding:12px;display:flex;justify-content:space-between;position:sticky;top:0;z-index:10}.logo{font-weight:900;color:#1877F2;font-size:20px}.s{display:flex;gap:10px;overflow:auto;padding:10px;background:#fff}.st{min-width:100px;height:140px;border-radius:12px;color:#fff;padding:8px;display:flex;align-items:end;font-weight:700;cursor:pointer}.p{background:#fff;margin:8px 0;padding:12px;border-radius:8px} video,img{width:100%;border-radius:8px;margin-top:8px}.nav{position:fixed;bottom:0;left:0;right:0;background:#fff;display:flex;border-top:2px solid #1877F2;z-index:999}.nav button{flex:1;border:0;background:#fff;padding:12px 2px;font-size:12px;font-weight:600}.nav button.on{color:#1877F2;background:#e7f3ff}.page{display:none;padding-bottom:80px}.page.on{display:block} #story{position:fixed;inset:0;background:#000;color:#fff;display:none;align-items:center;justify-content:center;z-index:1000;font-size:28px;text-align:center}</style></head><body>
+<div class="h"><div class="logo">frankoworld 4.4 🔴 LIVE</div><div>🔍 💬 🔔</div></div>
+
 <div id="home" class="page on">
-<div class="s"><div class="st" style="background:linear-gradient(orange,red)" onclick="openS('🔥 Franko Day')">🔥 Franko's Day</div><div class="st" style="background:linear-gradient(teal,green)" onclick="openS('🌴 Lagos Vibes')">🌴 Lagos Vibes</div><div class="st" style="background:linear-gradient(royalblue,purple)" onclick="openS('🎬 My Reel')">🎬 My Reel</div></div>
-<div class="p"><b>Franko</b> - Create Post<br><br><input id="txt" placeholder="What's on your mind?" style="width:65%;padding:10px;border-radius:20px;border:1px solid #ddd"><input type="file" id="f" hidden><button onclick="document.getElementById('f').click()" style="padding:8px">🖼️</button> <button onclick="post()" style="background:#1877F2;color:#fff;border:0;padding:10px 15px;border-radius:20px;font-weight:700">Post</button><br><br>🎥 Reel | 🔴 Live | 🖼️ Photo</div>
-<div id="feed"></div>
-<div class="p"><b>FrankoWorld</b> • now<br>Welcome to 4.3! Now EVERYTHING WORKS! 🔥<br><br><video controls autoplay muted loop><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video></div>
+<div class="s">
+<div class="st" style="background:linear-gradient(orange,red)" onclick="openS('🔥 Franko Day')">🔥 Franko's Day</div>
+<div class="st" style="background:linear-gradient(teal,green)" onclick="openS('🌴 Lagos Vibes')">🌴 Lagos Vibes</div>
+<div class="st" style="background:linear-gradient(royalblue,purple)" onclick="openS('🎬 My Reel')">🎬 My Reel</div>
 </div>
-<div id="reels" class="page"><div class="p"><h2>🎬 Reels Page - WORKING!</h2><video controls><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video><p>My first reel 🔥</p></div></div>
-<div id="friends" class="page"><div class="p"><h2>👥 Friends Page - WORKING!</h2><p>Chidi - Lagos <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px">Add</button></p><p>Amaka - London <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px">Add</button></p></div></div>
-<div id="notif" class="page"><div class="p"><h2>🔔 Notifications - WORKING!</h2><p>❤️ Chidi liked your post</p><p>💬 Amaka commented: Nice one!</p></div></div>
-<div id="profile" class="page"><div class="p" style="text-align:center"><div style="width:90px;height:90px;background:#1877F2;color:#fff;border-radius:50%;font-size:50px;line-height:90px;margin:20px auto">F</div><h2>FrankoWorld</h2><p>Lagos, Nigeria</p><p><b>1.2K</b> Friends • <b>50</b> Reels</p><button style="background:#1877F2;color:#fff;border:0;padding:12px 25px;border-radius:25px;font-weight:700">Edit Profile</button></div></div>
-<div class="nav"><button id="b-home" class="on" onclick="show('home',this)">🏠<br>Home</button><button onclick="show('reels',this)">🎬<br>Reels</button><button onclick="show('friends',this)">👥<br>Friends</button><button onclick="show('notif',this)">🔔<br>Notifs</button><button onclick="show('profile',this)">👤<br>Profile</button></div>
+
+<div class="p">
+<b id="uname">Franko</b> - Create Post<br><br>
+<input id="txt" placeholder="What's on your mind?" style="width:60%;padding:10px;border-radius:20px;border:1px solid #ddd">
+<input type="file" id="f" accept="image/*,video/*" hidden>
+<button onclick="document.getElementById('f').click()" style="padding:8px">🖼️</button>
+<button onclick="post()" style="background:#1877F2;color:#fff;border:0;padding:10px 12px;border-radius:20px;font-weight:700">Post</button>
+<br><br>
+<span onclick="document.getElementById('f').click()" style="cursor:pointer">🎥 Reel</span> |
+<span onclick="goLive()" style="color:red;font-weight:800;cursor:pointer">🔴 Live</span> |
+<span onclick="document.getElementById('f').click()" style="cursor:pointer">🖼️ Photo</span> |
+<span onclick="createAccount()" style="color:#1877F2;font-weight:700;cursor:pointer">👤 Account</span>
+</div>
+
+<div id="feed"></div>
+<div class="p"><b>FrankoWorld</b> • now<br>Welcome to 4.4! Video, Live & Account now WORKING! 🔥<br><br><video controls autoplay muted loop><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video></div>
+</div>
+
+<div id="reels" class="page"><div class="p"><h2>🎬 Reels</h2><video controls><source src="https://www.w3schools.com/html/mov_bbb.mp4"></video><p>My first reel 🔥 - Tap 🖼️ to add your own!</p></div></div>
+<div id="friends" class="page"><div class="p"><h2>👥 Friends</h2><div id="friendList"><p>Chidi - Lagos <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px" onclick="alert('Friend request sent!')">Add</button></p><p>Amaka - London <button style="background:#1877F2;color:#fff;border:0;padding:5px 10px;border-radius:5px" onclick="alert('Friend request sent!')">Add</button></p></div></div></div>
+<div id="notif" class="page"><div class="p"><h2>🔔 Notifications</h2><p>❤️ Someone liked your post</p><p>💬 Amaka: Nice one bro!</p><p>👤 New account feature added in 4.4!</p></div></div>
+<div id="profile" class="page"><div class="p" style="text-align:center"><div style="width:90px;height:90px;background:#1877F2;color:#fff;border-radius:50%;font-size:50px;line-height:90px;margin:20px auto" id="pIcon">F</div><h2 id="pName">FrankoWorld</h2><p>Lagos, Nigeria</p><p><b>1.2K</b> Friends • <b>50</b> Reels</p><button style="background:#1877F2;color:#fff;border:0;padding:12px 25px;border-radius:25px;font-weight:700" onclick="createAccount()">Create / Change Account</button><br><br><button style="background:#42b72a;color:#fff;border:0;padding:10px 20px;border-radius:20px" onclick="alert('FrankoWorld 4.4 - Frontend version. For real global accounts, we need 5.0 with Supabase backend!')">Info</button></div></div>
+
+<div class="nav">
+<button class="on" onclick="show('home',this)">🏠<br>Home</button>
+<button onclick="show('reels',this)">🎬<br>Reels</button>
+<button onclick="show('friends',this)">👥<br>Friends</button>
+<button onclick="show('notif',this)">🔔<br>Notifs</button>
+<button onclick="show('profile',this)">👤<br>Profile</button>
+</div>
+
 <div id="story" onclick="this.style.display='none'"><div><div id="stxt"></div><br><small>Tap to close</small></div></div>
-<script>function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');window.scrollTo(0,0)}function openS(t){document.getElementById('stxt').innerText=t;document.getElementById('story').style.display='flex';setTimeout(()=>{document.getElementById('story').style.display='none'},3000)}function post(){let t=document.getElementById('txt').value;let fi=document.getElementById('f');let m='';if(fi.files[0]){let u=URL.createObjectURL(fi.files[0]);m=fi.files[0].type.includes('video')?`<video controls src="${u}"></video>`:`<img src="${u}">`}if(!t&&!m)return alert('Write something boss');document.getElementById('feed').innerHTML=`<div class="p"><b>Franko</b> • now<br>${t}<br>${m}</div>`+document.getElementById('feed').innerHTML;document.getElementById('txt').value=''}</script></body></html>
+
+<script>
+let user=localStorage.getItem('franko_user')||'Franko';
+document.getElementById('uname').innerText=user;
+document.getElementById('pName').innerText=user;
+document.getElementById('pIcon').innerText=user.charAt(0).toUpperCase();
+function show(id,btn){document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));document.getElementById(id).classList.add('on');document.querySelectorAll('.nav button').forEach(b=>b.classList.remove('on'));btn.classList.add('on');window.scrollTo(0,0)}
+function openS(t){document.getElementById('stxt').innerText=t;document.getElementById('story').style.display='flex';setTimeout(()=>{document.getElementById('story').style.display='none'},3000)}
+function post(){let t=document.getElementById('txt').value;let fi=document.getElementById('f');let m='';if(fi.files[0]){let u=URL.createObjectURL(fi.files[0]);m=fi.files[0].type.includes('video')?`<video controls src="${u}" style="width:100%"></video>`:`<img src="${u}" style="width:100%">`}if(!t&&!m)return alert('Write something or add photo/video');document.getElementById('feed').innerHTML=`<div class="p"><b>${user}</b> • now<br>${t}<br>${m}</div>`+document.getElementById('feed').innerHTML;document.getElementById('txt').value='';document.getElementById('f').value='';alert('Posted! 🔥 Others will see it when we add backend in 5.0')}
+async function goLive(){try{let s=await navigator.mediaDevices.getUserMedia({video:true,audio:true});let v=document.createElement('video');v.srcObject=s;v.autoplay=true;v.muted=false;v.style.cssText='position:fixed;inset:0;width:100%;height:100%;background:#000;z-index:9999;object-fit:cover';document.body.appendChild(v);let b=document.createElement('button');b.innerText='STOP LIVE X';b.style.cssText='position:fixed;top:20px;right:20px;z-index:10000;background:red;color:#fff;border:0;padding:12px 20px;border-radius:25px;font-weight:800';b.onclick=()=>{s.getTracks().forEach(t=>t.stop());v.remove();b.remove();alert('Live ended!')};document.body.appendChild(b);alert('You are LIVE! 🔴')}catch(e){alert('Allow camera & mic to go live! Go to phone settings > Chrome > Allow Camera')}}
+function createAccount(){let n=prompt('Enter username:',user);if(n&&n.trim()!=''){localStorage.setItem('franko_user',n.trim());user=n.trim();document.getElementById('uname').innerText=user;document.getElementById('pName').innerText=user;document.getElementById('pIcon').innerText=user.charAt(0).toUpperCase();alert('Account saved! Welcome '+user+' 🎉 Now you can post as '+user)}}
+</script>
+</body></html>
